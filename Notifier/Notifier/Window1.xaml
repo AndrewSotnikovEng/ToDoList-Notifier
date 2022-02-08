@@ -1,0 +1,18 @@
+﻿<Window x:Class="notifier.UserInput"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:notifier"
+        mc:Ignorable="d"
+        Title="Новая задача" Height="127.826" Width="696.957">
+    <Grid Margin="0,0,60,262">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="188*"/>
+            <ColumnDefinition Width="441*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="OK" HorizontalAlignment="Left" Height="26" Margin="370.261,58,-38,-84" VerticalAlignment="Top" Width="109" Grid.Column="1" Click="OKButton_Click" />
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="25,13,-38,-39" TextWrapping="Wrap" VerticalAlignment="Top" Width="642" Grid.ColumnSpan="2" x:Name="ResponseTextBox" />
+
+    </Grid>
+</Window>
