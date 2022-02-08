@@ -40,9 +40,7 @@ namespace Notifier
             foreach (var item in service.GetAllTaskNamesFromCurrent(true))
             {
                 tasksListBox.Items.Add(item);
-            }
-
- 
+            } 
         }
 
         private void taskListBox_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -89,49 +87,18 @@ namespace Notifier
 
         private void DoneBtn_Click(object sender, RoutedEventArgs e)
         {
-            //string selectedItem;
-            //if (!String.IsNullOrEmpty(tasksListBox.SelectedItem.ToString()))
-            //{
-            //    selectedItem = tasksListBox.SelectedItem.ToString();
-            //}
-            //else
-            //{
-            //    return;
-            //}
+            string taskName;
+            if (!String.IsNullOrEmpty(tasksListBox.SelectedItem.ToString()))
+            {
+                taskName = tasksListBox.SelectedItem.ToString();
+            }
+            else
+            {
+                return;
+            }
+            service.MarkTaskAsDone(taskName);
 
-
-            //int taskId = Int32.Parse(selectedItem.Split(':')[0]);
-
-            //SQL = $"SELECT IsTemplate FROM Tasks WHERE ID ={taskId}";
-            //command = new OleDbCommand(SQL, connection);
-            //OleDbDataReader reader = command.ExecuteReader();
-            //reader.Read();
-            //bool isTemplate = reader["IsTemplate"].ToString() == "True" ? true : false;
-
-            //string curDate = $"{DateTime.Now.Year.ToString("00")}/{DateTime.Now.Month.ToString("00")}/{DateTime.Now.Day.ToString("00")}";
-            //if (isTemplate) //if tempalte
-            //{
-            //    SQL = $"UPDATE Tasks SET CompletionDate = FORMAT(#{curDate}# , 'yyyy/mm/dd') WHERE ID = {taskId}";
-            //    command = new OleDbCommand(SQL, connection);
-            //    reader = command.ExecuteReader();
-            //    reader.Read();
-
-            //} else //if not tempalte
-            //{                
-
-            //    SQL = $"UPDATE Tasks SET Completed = True, CompletionDate = FORMAT(#{curDate}# , 'yyyy/mm/dd') WHERE ID = {taskId}";
-            //    command = new OleDbCommand(SQL, connection);
-            //    reader = command.ExecuteReader();
-            //    reader.Read();
-
-            //}
-            //SQL = $"DELETE FROM Contexts WHERE TaskID = {taskId}";
-            //command = new OleDbCommand(SQL, connection);
-            //reader = command.ExecuteReader();
-            //reader.Read();
-
-
-            //UpdateListBox();
+            UpdateListBox();
         }
 
         private void RegreshBtn_Click(object sender, RoutedEventArgs e)

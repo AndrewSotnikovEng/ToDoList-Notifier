@@ -60,6 +60,41 @@ namespace Notifier.DataLayer
             }
         }
 
+        public void MarkTaskAsDone(string taskName)
+        {
+
+            int taskId = Int32.Parse(taskName.Split(':')[1]);
+
+            SQL = $"SELECT IsTemplate FROM Tasks WHERE ID ={taskId}";
+            Command = new OleDbCommand(SQL, Connection);
+            OleDbDataReader reader = Command.ExecuteReader();
+            reader.Read();
+            bool isTemplate = reader["IsTemplate"].ToString() == "True" ? true : false;
+
+            if (isTemplate) //if tempalte
+            {
+                SQL = $"UPDATE Tasks SET CompletionDate = FORMAT(#{GetCurDate()}# , 'yyyy/mm/dd') WHERE ID = {taskId}";
+                Command = new OleDbCommand(SQL, Connection);
+                reader = Command.ExecuteReader();
+                reader.Read();
+
+            }
+            else //if not tempalte
+            {
+
+                SQL = $"UPDATE Tasks SET Completed = True, CompletionDate = FORMAT(#{GetCurDate()}# , 'yyyy/mm/dd') WHERE ID = {taskId}";
+                Command = new OleDbCommand(SQL, Connection);
+                reader = Command.ExecuteReader();
+                reader.Read();
+
+            }
+            SQL = $"DELETE FROM Contexts WHERE TaskID = {taskId}";
+            Command = new OleDbCommand(SQL, Connection);
+            reader = Command.ExecuteReader();
+            reader.Read();
+
+        }
+
         public List<string> GetAllTaskNamesFromCurrent(bool verbose)
         {
             List<String> taskNames = new List<string>();
