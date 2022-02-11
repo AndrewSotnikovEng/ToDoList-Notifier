@@ -96,6 +96,7 @@ namespace Notifier.DataLayer
                  "Name, " +
                  "CreationDate " +
                  "FROM Tasks " +
+                 "WHERE Completed LIKE False " +
                  "ORDER BY CreationDate DESC";
 
             Command = new OleDbCommand(SQL, Connection);
@@ -188,6 +189,11 @@ namespace Notifier.DataLayer
             string curDate = $"{DateTime.Now.Year.ToString("00")}/{DateTime.Now.Month.ToString("00")}/{DateTime.Now.Day.ToString("00")}";
 
             return curDate;
+        }
+
+        public void CloseConnection()
+        {
+            Connection.Close();
         }
     }
 }

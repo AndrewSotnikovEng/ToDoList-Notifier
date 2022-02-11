@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSharp.OleDb, Version=1.0.5.1, Culture=neutral, PublicKeyToken=872ff9e93c410e95, processorArchitecture=MSIL">
       <HintPath>..\packages\CSharp.OleDb.1.0.5.1\lib\net45\CSharp.OleDb.dll</HintPath>
@@ -65,8 +68,8 @@
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="DAL\DBService.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
-    <Compile Include="Views\UserInput.xaml.cs">
-      <DependentUpon>UserInput.xaml</DependentUpon>
+    <Compile Include="Views\AddItemWindow.xaml.cs">
+      <DependentUpon>AddItemWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -80,7 +83,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\UserInput.xaml">
+    <Page Include="Views\AddItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -111,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

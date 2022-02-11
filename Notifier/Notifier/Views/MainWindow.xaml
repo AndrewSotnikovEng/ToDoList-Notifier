@@ -31,7 +31,7 @@
         <StackPanel Orientation="Horizontal"/>
         <Button Content="Add" Grid.Column="2" HorizontalAlignment="Left" Height="22" Margin="174,10,0,0" VerticalAlignment="Top" Width="45" Grid.RowSpan="2" Command="{Binding AddNewTaskCmd}"/>
         <Button Content="Done" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Height="22" Margin="174,30,0,0" VerticalAlignment="Top" Width="45" Grid.RowSpan="2" Command="{Binding MarkTaskAsDoneCmd}"/>
-        <Button Content="Refresh" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Height="22" Margin="174,90,0,0" VerticalAlignment="Top" Width="45" Grid.RowSpan="2" />
+        <Button Content="Refresh" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Height="22" Margin="174,90,0,0" VerticalAlignment="Top" Width="45" Grid.RowSpan="2" Command="{Binding RefreshListCmd}"/>
 
     </Grid>
 </Window>

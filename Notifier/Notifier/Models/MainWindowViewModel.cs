@@ -17,6 +17,7 @@ namespace Notifier.ViewModels
 
         public RelayCommand AddNewTaskCmd { get; }
         public RelayCommand MarkTaskAsDoneCmd { get; private set; }
+        public RelayCommand RefreshListCmd { get; private set; }
 
         ObservableCollection<TaskModel> taskCombinedNames = new ObservableCollection<TaskModel>();
 
@@ -52,9 +53,21 @@ namespace Notifier.ViewModels
 
             AddNewTaskCmd = new RelayCommand( o => { AddNewTask(); }, AddNewTaskCanExecute);
             MarkTaskAsDoneCmd = new RelayCommand(o => { MarkTaskAsDone(); }, MarkTaskAsDoneCanExecute);
+            RefreshListCmd = new RelayCommand(o => { RefreshList(); }, RefreshListCanExecute);
 
             MessengerStatic.TaskAdded += MessengerStatic_TaskAdded;
 
+        }
+
+        private bool RefreshListCanExecute(object arg)
+        {
+            return true;
+        }
+
+        private void RefreshList()
+        {
+            taskCombinedNames.Clear();
+            service.GetAllTasksFromCurrent(false).ForEach(x => taskCombinedNames.Add(x));
         }
 
         private void MessengerStatic_TaskAdded(object obj)
@@ -64,7 +77,7 @@ namespace Notifier.ViewModels
 
         private void AddNewTask()
         {
-            UserInput userInput = new UserInput();
+            AddItemWindow userInput = new AddItemWindow();
             userInput.Show();
         }
 
@@ -93,7 +106,22 @@ namespace Notifier.ViewModels
             return true;
         }
 
-
-
+        public bool IsFinished
+        {
+            get
+            {
+                bool result = false;
+                try
+                {
+                    service.CloseConnection();
+                    result = true;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                return result;
+            }
+        }
     }
 }

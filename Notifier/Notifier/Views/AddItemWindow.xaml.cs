@@ -8,19 +8,33 @@ namespace Notifier.Views
     /// <summary>
     /// Interaction logic for UserInput.xaml
     /// </summary>
-    public partial class UserInput : Window
+    public partial class AddItemWindow : Window
     {
-        public UserInput()
+        public AddItemWindow()
         {
             InitializeComponent();
             
             DataContext = new AddItemWindowViewModel();
             MessengerStatic.TaskAdded += MessengerStatic_TaskAdded;
+            Closing += AddItemWindow_Closing;
+        }
+
+        private void AddItemWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            AddItemWindowViewModel vm = (AddItemWindowViewModel)DataContext;
+            if (!vm.IsFinished)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void MessengerStatic_TaskAdded(object obj)
         {
-            this.Close();
+            AddItemWindowViewModel vm = (AddItemWindowViewModel)DataContext;
+            if (vm.IsFinished)
+            {
+                Close();
+            }
         }
 
         private void ToggleExistedBtn_Click(object sender, RoutedEventArgs e)

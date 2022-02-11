@@ -106,5 +106,24 @@ namespace Notifier.ViewModels
             }
             MessengerStatic.NotifyTaskAdded(null);
         }
+
+        public bool IsFinished
+        {
+            get
+            {
+                bool result = false;
+                try
+                {
+                    service.CloseConnection();
+                    result = true;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                return result;
+            }
+        }
     }
 }
