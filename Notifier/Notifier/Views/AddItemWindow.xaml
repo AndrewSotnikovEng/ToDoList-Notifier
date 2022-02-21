@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notifier"
         mc:Ignorable="d"
-        Title="Новая задача" Height="142.5" Width="469.398"
+        Title="Новая задача" Height="180" Width="469.398"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,-8,243">
-        <Button Content="OK" HorizontalAlignment="Left" Height="20" Margin="390,80,0,-100" VerticalAlignment="Top" Width="60" Command="{Binding AddNewTaskCmd}"/>
-        <TextBox x:Name="TaskNameBox" Height="20" Margin="20,15,50,-35" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding TaskName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox x:Name="ExistedTasks" Height="20" Margin="20,15,50,-35" VerticalAlignment="Top" ItemsSource="{Binding ExistedTasks}"  Visibility="Hidden" 
-                  SelectedItem="{Binding SelectedComboItem, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name">
+        <TextBox x:Name="FilterTextBox" Height="20" Margin="0,15,50,-55" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Right" Width="399" Visibility="Hidden"
+                 Text="{Binding Path=FilterWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="OK" Height="20" Margin="390,120,19,-140" VerticalAlignment="Top" Command="{Binding AddNewTaskCmd}"/>
+        <TextBox x:Name="TaskNameBox" Height="20" Margin="20,45,50,-65" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding TaskName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox x:Name="ExistedTasks" Height="20" Margin="0,45,50,-65" VerticalAlignment="Top" ItemsSource="{Binding ExistedTasks}"  Visibility="Hidden" 
+                  SelectedItem="{Binding SelectedComboItem, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" HorizontalAlignment="Right" Width="399">
         </ComboBox>
-        <Button x:Name="ToggleExistedBtn" Margin="430,15,0,-35" Height="20" Width="20" HorizontalAlignment="Left" Click="ToggleExistedBtn_Click" />
-        <ComboBox x:Name="TargetSpace" Height="20" Margin="20,40,221,-60" SelectedItem="{Binding TargetSpace, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+        <Button x:Name="ToggleExistedBtn" Margin="430,45,19,-65" Height="20" Click="ToggleExistedBtn_Click" />
+        <ComboBox x:Name="TargetSpace" Height="20" Margin="0,80,221,-100" SelectedItem="{Binding TargetSpace, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="228">
             <ComboBoxItem Content="" Tag=""/>
             <ComboBoxItem Content="Ящик" Tag=""/>
             <ComboBoxItem Content="Стол" Tag=""/>

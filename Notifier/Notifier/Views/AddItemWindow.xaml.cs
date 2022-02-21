@@ -44,12 +44,15 @@ namespace Notifier.Views
             if ( currentMode == Modes.Adding)
             {
                 ExistedTasks.Visibility = Visibility.Visible;
+                FilterTextBox.Visibility = Visibility.Visible;
                 TaskNameBox.Visibility = Visibility.Hidden;
+                
                 ToggleExistedBtn.Background = new SolidColorBrush(Colors.LemonChiffon);
                 ((AddItemWindowViewModel)DataContext).CurrentMode = Modes.Selecting;
             } else
             {
                 ExistedTasks.Visibility = Visibility.Hidden;
+                FilterTextBox.Visibility = Visibility.Hidden;
                 TaskNameBox.Visibility = Visibility.Visible;
                 var converter = new BrushConverter();
                 ToggleExistedBtn.Background = (Brush)converter.ConvertFromString(DEFAULT_COLOR);

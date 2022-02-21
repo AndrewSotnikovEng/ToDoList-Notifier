@@ -5,9 +5,12 @@ using SimpleInstaller.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace Notifier.ViewModels
 {
@@ -26,6 +29,8 @@ namespace Notifier.ViewModels
 
 
         ObservableCollection<TaskModel> existedTasks = new ObservableCollection<TaskModel>();
+        private ICollectionView existedTasksView;
+
 
         public ObservableCollection<TaskModel> ExistedTasks
         {
@@ -43,7 +48,27 @@ namespace Notifier.ViewModels
             }
         }
 
+
         public TaskModel SelectedComboItem { get; set; }
+
+
+        private string filterWord;
+        public string FilterWord
+        {
+            get
+            {
+                return filterWord;
+            }
+            set
+            {
+                if (value != filterWord)
+                {
+                    filterWord = value;
+                    existedTasksView.Refresh();
+                    OnPropertyChanged("FilterWord");
+                }
+            }
+        }
 
 
         public string TaskName { get => taskName; set { taskName = value; OnPropertyChanged("TaskName"); } }
@@ -58,6 +83,7 @@ namespace Notifier.ViewModels
             AddNewTaskCmd = new RelayCommand(o => { AddNewTask(); }, AddNewTaskCanExecute);
             MessengerStatic.ShowExistedTasksQueried += MessengerStatic_ShowExistedTasksQueried;
 
+            WireFilter();
         }
 
         private void MessengerStatic_ShowExistedTasksQueried(object obj)
@@ -90,6 +116,13 @@ namespace Notifier.ViewModels
             }
 
             return result;
+        }
+
+        private void WireFilter()
+        {
+            existedTasksView = CollectionViewSource.GetDefaultView(existedTasks);
+            existedTasksView.Filter = o => String.IsNullOrEmpty(FilterWord) ?
+                    true : Regex.IsMatch(((TaskModel)o).Name, $"{FilterWord}", RegexOptions.IgnoreCase);
         }
 
         private void AddNewTask()
