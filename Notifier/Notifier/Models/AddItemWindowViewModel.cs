@@ -25,7 +25,28 @@ namespace Notifier.ViewModels
         private string taskName;
         private string targetSpace;
         DBService service;
-        public Modes CurrentMode { get; set; } = Modes.Adding;
+
+        Modes _currentMode = Modes.Adding;
+        public Modes CurrentMode
+        {
+            get
+            {
+                return _currentMode;
+            }
+            set
+            {
+                _currentMode = value;
+                OnPropertyChanged("ButtonModePath");
+            }
+        }
+        public string ButtonModePath
+        {
+            get
+            {
+                string buttonModePath = CurrentMode == Modes.Adding ? "/resources/adding_mode_icon.png" : "/resources/selecting_mode_icon.png";
+                return buttonModePath;
+            }
+        }
 
 
         ObservableCollection<TaskModel> existedTasks = new ObservableCollection<TaskModel>();
