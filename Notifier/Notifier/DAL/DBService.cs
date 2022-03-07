@@ -68,6 +68,19 @@ namespace Notifier.DataLayer
             }
         }
 
+        public void EditTask(int taskId, string taskName, string description)
+        {
+            //finding task
+            SQL = $"UPDATE Tasks SET Name='{taskName}', Description='{description}' WHERE ID LIKE {taskId}";
+            Command = new OleDbCommand(SQL, Connection);
+            OleDbDataReader reader = Command.ExecuteReader();
+            reader.Read();
+
+
+        }
+
+
+
         public void MoveTaskToSpace(int taskId, string targetSpace)
         {
 
@@ -108,8 +121,9 @@ namespace Notifier.DataLayer
             {
                 int id = (int)reader["ID"];
                 string name = reader["Name"].ToString();
+                string description = reader["Name"].ToString();
 
-                TaskModel task = new TaskModel(id, name);
+                TaskModel task = new TaskModel(id, name, description);
                 existedTasks.Add(task);
                 if (verbose)
                 {
@@ -158,6 +172,7 @@ namespace Notifier.DataLayer
             List<TaskModel> taskNames = new List<TaskModel>();
             SQL = "SELECT Tasks.ID, " +
                  "Tasks.Name, " +
+                 "Tasks.Description, " +
                  "Contexts.ActualDate, " +
                  "Contexts.SpaceID " +
                  "FROM Tasks " +
@@ -173,8 +188,9 @@ namespace Notifier.DataLayer
             {
                 int id = (int)reader["ID"];
                 string name = reader["Name"].ToString();
+                string descritpion = reader["Description"].ToString();
 
-                TaskModel task = new TaskModel(id, name);
+                TaskModel task = new TaskModel(id, name, descritpion);
                 taskNames.Add(task);
                 if (verbose)
                 {

@@ -59,6 +59,7 @@ namespace Notifier.ViewModels
 
         }
 
+
         private bool RefreshListCanExecute(object arg)
         {
             return true;

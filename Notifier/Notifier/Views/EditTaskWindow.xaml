@@ -1,0 +1,39 @@
+﻿<Window x:Class="Notifier.Views.EditTaskWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Notifier.Views"
+        mc:Ignorable="d"
+        Title="Edit task" Height="445.385" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="Button" >
+            <Setter Property="Button.FontSize" Value="14"/>
+            <Setter Property="Button.Width" Value="60"/>
+            <Setter Property="Button.Height" Value="25"/>
+            <Setter Property="Button.Margin" Value="20,10,0,0" />
+        </Style>
+    </Window.Resources>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=NameTextBox}">
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width = "Auto" MinWidth="110" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height = "50" />
+                <RowDefinition Height = "350" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row = "0" Grid.Column = "0" Text = "Имя" Margin = "10,18,0,17" HorizontalAlignment = "Left" VerticalAlignment = "Center" Width = "100" Height="16" />
+            <TextBox Name="NameTextBox"  Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row = "0" Grid.Column = "1" Margin = "10,10,24,10" KeyDown="TextBox_KeyDown"/>
+            <TextBlock Grid.Row = "1" Grid.Column = "0" Text = "Описание" Margin = "10,10,0,0" HorizontalAlignment = "Left" VerticalAlignment = "Top" Width = "100" Height="22" />
+            <TextBox Name="DescriptionTextBox" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row = "1" Grid.Column = "1" Margin = "10,10,24,55" KeyDown="TextBox_KeyDown"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Margin="608,355,10,0" Height="50" VerticalAlignment="Top">
+            <Button  Style="{StaticResource Button}" Command="{Binding OkBtnCmd}"  >OK</Button>
+            <Button  Style="{StaticResource Button}" Command="{Binding CancelBtnCmd}">Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>

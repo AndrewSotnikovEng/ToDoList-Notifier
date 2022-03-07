@@ -103,8 +103,14 @@ namespace Notifier.ViewModels
             service = new DBService(@"D:\Дело\das_code\dotnet\todo-list.accdb");
             AddNewTaskCmd = new RelayCommand(o => { AddNewTask(); }, AddNewTaskCanExecute);
             MessengerStatic.ShowExistedTasksQueried += MessengerStatic_ShowExistedTasksQueried;
+            MessengerStatic.TaskAddedByEnter += MessengerStatic_TaskAddedByEnter;
 
             WireFilter();
+        }
+
+        private void MessengerStatic_TaskAddedByEnter(object obj)
+        {
+            AddNewTask();
         }
 
         private void MessengerStatic_ShowExistedTasksQueried(object obj)

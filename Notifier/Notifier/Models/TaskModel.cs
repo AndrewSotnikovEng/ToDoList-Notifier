@@ -11,15 +11,19 @@ namespace Notifier.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public string CombinedName
         {
             get { return Name + " : " + Id; }
         }
 
-        public TaskModel(int id, string name)
+        public TaskModel(int id, string name, string description)
         {
             Id = id;
             Name = name;
+            Description = description;
+
         }
     }
 }

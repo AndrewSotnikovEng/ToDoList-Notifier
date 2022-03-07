@@ -63,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Models\AddItemWindowViewModel.cs" />
+    <Compile Include="Models\EditTaskViewModel.cs" />
     <Compile Include="Models\MainWindowViewModel.cs" />
     <Compile Include="Models\MessengerStatic.cs" />
     <Compile Include="Models\TaskModel.cs" />
@@ -70,6 +71,9 @@
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Views\AddItemWindow.xaml.cs">
       <DependentUpon>AddItemWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditTaskWindow.xaml.cs">
+      <DependentUpon>EditTaskWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +88,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditTaskWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,14 +124,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="app.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\app.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\adding_mode_icon.png" />
     <Resource Include="Resources\selecting_mode_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

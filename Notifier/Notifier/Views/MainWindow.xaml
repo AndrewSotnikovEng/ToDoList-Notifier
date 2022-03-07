@@ -22,7 +22,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding CombinedName}"/>
+                        <TextBlock Text="{Binding CombinedName}" MouseDown="taskListBox_DoubleClick"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

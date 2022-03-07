@@ -19,6 +19,7 @@ namespace Notifier.Views
             
             DataContext = new MainWindowViewModel();
             MessengerStatic.NewTaskQueried += MessengerStatic_NewTaskQueried;
+
             Closing += MainWindowClosing;
 
         }
@@ -40,7 +41,12 @@ namespace Notifier.Views
 
         private void taskListBox_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            if (e.ClickCount >= 2)
+            {
+                
+                var dialog = new EditTaskWindow(((MainWindowViewModel)DataContext).SelectedTask);
+                dialog.Show();
+            }
         }
 
     }
