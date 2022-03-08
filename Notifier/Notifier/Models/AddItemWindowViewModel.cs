@@ -1,6 +1,6 @@
 ﻿using Notifier.Commands;
 using Notifier.DataLayer;
-
+using Notifier.Models;
 using SimpleInstaller.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace Notifier.ViewModels
     {
         private string taskName;
         private string targetSpace;
-        DBService service;
+        DBService _dbService;
 
         Modes _currentMode = Modes.Adding;
         public Modes CurrentMode
@@ -58,7 +58,7 @@ namespace Notifier.ViewModels
             get
             {
                 existedTasks.Clear();
-                service.GetAllTasks(false).ForEach(x => existedTasks.Add(x));
+                _dbService.GetAllTasks(false).ForEach(x => existedTasks.Add(x));
 
                 return existedTasks;
             }
@@ -100,11 +100,11 @@ namespace Notifier.ViewModels
 
         public AddItemWindowViewModel()
         {
-            service = new DBService(@"D:\Дело\das_code\dotnet\todo-list.accdb");
             AddNewTaskCmd = new RelayCommand(o => { AddNewTask(); }, AddNewTaskCanExecute);
             MessengerStatic.ShowExistedTasksQueried += MessengerStatic_ShowExistedTasksQueried;
             MessengerStatic.TaskAddedByEnter += MessengerStatic_TaskAddedByEnter;
 
+            _dbService = SharedData.container.GetInstance<DBService>();
             WireFilter();
         }
 
@@ -116,7 +116,7 @@ namespace Notifier.ViewModels
         private void MessengerStatic_ShowExistedTasksQueried(object obj)
         {
             ExistedTasks.Clear();
-            service.GetAllTasks(true).ForEach(x => ExistedTasks.Add(x));
+            _dbService.GetAllTasks(true).ForEach(x => ExistedTasks.Add(x));
         }
 
         private bool AddNewTaskCanExecute(object arg)
@@ -158,10 +158,10 @@ namespace Notifier.ViewModels
             switch (CurrentMode)
             {
                 case Modes.Selecting:
-                    service.MoveTaskToSpace(SelectedComboItem.Id, targetSpace);
+                    _dbService.MoveTaskToSpace(SelectedComboItem.Id, targetSpace);
                     break;
                 case Modes.Adding:
-                    service.CreateNewTask(taskName, targetSpace);
+                    _dbService.CreateNewTask(taskName, targetSpace);
                     break;
             }
             MessengerStatic.NotifyTaskAdded(null);
@@ -174,7 +174,7 @@ namespace Notifier.ViewModels
                 bool result = false;
                 try
                 {
-                    service.CloseConnection();
+                    _dbService.CloseConnection();
                     result = true;
                 }
                 catch (Exception)

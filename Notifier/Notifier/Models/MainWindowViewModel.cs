@@ -1,6 +1,8 @@
 ﻿using Notifier.Commands;
 using Notifier.DataLayer;
+using Notifier.Models;
 using Notifier.Views;
+using SimpleInjector;
 using SimpleInstaller.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,8 @@ namespace Notifier.ViewModels
 {
     public class MainWindowViewModel : ViewModels.ViewModelBase
     {
-        DBService service;
+        DBService _dbService;
+
 
         public RelayCommand AddNewTaskCmd { get; }
         public RelayCommand MarkTaskAsDoneCmd { get; private set; }
@@ -30,13 +33,12 @@ namespace Notifier.ViewModels
         }
 
 
-
         public ObservableCollection<TaskModel> TaskCombinedNames
         {
             get
             {
                 taskCombinedNames.Clear();
-                service.GetAllTasksFromCurrent(false).ForEach(x => taskCombinedNames.Add(x));
+                _dbService.GetAllTasksFromCurrent(false).ForEach(x => taskCombinedNames.Add(x));
 
                 return taskCombinedNames;
             }
@@ -49,13 +51,16 @@ namespace Notifier.ViewModels
 
         public MainWindowViewModel()
         {
-            service = new DBService(@"D:\Дело\das_code\dotnet\todo-list.accdb");
-
             AddNewTaskCmd = new RelayCommand( o => { AddNewTask(); }, AddNewTaskCanExecute);
             MarkTaskAsDoneCmd = new RelayCommand(o => { MarkTaskAsDone(); }, MarkTaskAsDoneCanExecute);
             RefreshListCmd = new RelayCommand(o => { RefreshList(); }, RefreshListCanExecute);
 
             MessengerStatic.TaskAdded += MessengerStatic_TaskAdded;
+
+            SharedData.InitContainer();
+            SharedData.InitDbService();
+
+            _dbService = SharedData.container.GetInstance<DBService>();
 
         }
 
@@ -68,7 +73,7 @@ namespace Notifier.ViewModels
         private void RefreshList()
         {
             taskCombinedNames.Clear();
-            service.GetAllTasksFromCurrent(false).ForEach(x => taskCombinedNames.Add(x));
+            _dbService.GetAllTasksFromCurrent(false).ForEach(x => taskCombinedNames.Add(x));
         }
 
         private void MessengerStatic_TaskAdded(object obj)
@@ -95,10 +100,8 @@ namespace Notifier.ViewModels
 
         private void MarkTaskAsDone()
         {
-            service.MarkTaskAsDone(SelectedTask.Id);
+            _dbService.MarkTaskAsDone(SelectedTask.Id);
             TaskCombinedNames.Remove(SelectedTask);
-
-
 
         }
 
@@ -114,7 +117,7 @@ namespace Notifier.ViewModels
                 bool result = false;
                 try
                 {
-                    service.CloseConnection();
+                    _dbService.CloseConnection();
                     result = true;
                 }
                 catch (Exception)

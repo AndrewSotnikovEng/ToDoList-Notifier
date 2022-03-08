@@ -12,14 +12,12 @@ namespace Notifier.Models
 {
     class EditTaskViewModel
     {
-
         public int Id { get; set; }
         public string Name { get; set; }
-
         public string Description { get; set; }
         
 
-        DBService service;
+        DBService _dbService;
         public EditTaskViewModel(TaskModel selectedItem)
         {
             Id = selectedItem.Id;
@@ -30,7 +28,7 @@ namespace Notifier.Models
             CancelBtnCmd = new RelayCommand(o => { Cancel();  });
             MessengerStatic.TaskEditedByEnter += MessengerStatic_TaskEditedByEnter;
 
-            service = new DBService(@"D:\Дело\das_code\dotnet\todo-list.accdb");
+            _dbService = SharedData.container.GetInstance<DBService>();
 
         }
 
@@ -47,7 +45,7 @@ namespace Notifier.Models
         private void RenameTask()
         {
 
-            service.EditTask(Id, Name, Description);
+            _dbService.EditTask(Id, Name, Description);
             MessengerStatic.NotifyEditWindowClosing();
         }
 

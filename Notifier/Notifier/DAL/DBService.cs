@@ -20,9 +20,14 @@ namespace Notifier.DataLayer
         string SQL { get; set; }
         string ConnectionString { get; set; }
 
-        // Open connecton    
 
-        public DBService(string dbFile)
+        public DBService()
+        {
+
+        }
+
+
+        public void InitConnection(string dbFile) 
         {
             if (!File.Exists(dbFile))
             {
@@ -33,6 +38,7 @@ namespace Notifier.DataLayer
 
             Connection = new OleDbConnection(ConnectionString);
             Connection.Open();
+
         }
 
         public void CreateNewTask(string taskName, string targetSpace)

@@ -40,6 +40,12 @@
     <Reference Include="CSharp.OleDb, Version=1.0.5.1, Culture=neutral, PublicKeyToken=872ff9e93c410e95, processorArchitecture=MSIL">
       <HintPath>..\packages\CSharp.OleDb.1.0.5.1\lib\net45\CSharp.OleDb.dll</HintPath>
     </Reference>
+    <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
+      <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector, Version=5.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.5.3.3\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -66,6 +72,7 @@
     <Compile Include="Models\EditTaskViewModel.cs" />
     <Compile Include="Models\MainWindowViewModel.cs" />
     <Compile Include="Models\MessengerStatic.cs" />
+    <Compile Include="Models\SharedData.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="DAL\DBService.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
