@@ -1,6 +1,7 @@
 ﻿using Notifier.ViewModels;
 using SimpleInstaller.ViewModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -23,6 +24,7 @@ namespace Notifier.Views
         private void AddItemWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             AddItemWindowViewModel vm = (AddItemWindowViewModel)DataContext;
+            vm.UnwireStaticBus();
             if (!vm.IsFinished)
             {
                 e.Cancel = true;
@@ -67,7 +69,7 @@ namespace Notifier.Views
         {
             if (e.Key == Key.Return)
             {
-                this.Title = "Processing, please wait...";
+                Title = "Processing, please wait...";
                 MessengerStatic.NotifyAboutTaskAddingByEnter();
             }
         }

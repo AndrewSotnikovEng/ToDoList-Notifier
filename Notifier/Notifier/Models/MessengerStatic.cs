@@ -14,7 +14,7 @@ namespace SimpleInstaller.ViewModel
 
 
         public static event Action<object> NewTaskQueried;
-        public static void NotifyShowNewTaskWindow(object o)
+        public static void NotifyShowNewTaskWindow(object o = null)
             => NewTaskQueried?.Invoke(o);
 
 

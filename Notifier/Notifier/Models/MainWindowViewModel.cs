@@ -72,6 +72,7 @@ namespace Notifier.ViewModels
 
         private void RefreshList()
         {
+            SharedData.InitDbService();
             taskCombinedNames.Clear();
             _dbService.GetAllTasksFromCurrent(false).ForEach(x => taskCombinedNames.Add(x));
         }
@@ -83,8 +84,7 @@ namespace Notifier.ViewModels
 
         private void AddNewTask()
         {
-            AddItemWindow userInput = new AddItemWindow();
-            userInput.Show();
+            MessengerStatic.NotifyShowNewTaskWindow();
         }
 
         private bool MarkTaskAsDoneCanExecute(object arg)

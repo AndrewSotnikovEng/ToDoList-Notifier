@@ -36,6 +36,8 @@ namespace Notifier.Views
         private void MessengerStatic_NewTaskQueried(object obj)
         {
             var dialog = new AddItemWindow();
+            dialog.Show();
+
         }
 
 

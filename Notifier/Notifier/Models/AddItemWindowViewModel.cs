@@ -22,8 +22,19 @@ namespace Notifier.ViewModels
 
     class AddItemWindowViewModel : ViewModelBase
     {
-        private string taskName;
-        private string targetSpace;
+        string _taskName;
+        public string TaskName { 
+            get => _taskName; 
+            set { _taskName = value; }
+        }
+
+
+        string _targetSpace;
+        public string TargetSpace { 
+            get => _targetSpace == null ? "" : _targetSpace; 
+            set { _targetSpace = value; OnPropertyChanged("TargetSpace"); } 
+        }
+
         DBService _dbService;
 
         Modes _currentMode = Modes.Adding;
@@ -92,20 +103,17 @@ namespace Notifier.ViewModels
         }
 
 
-        public string TaskName { get => taskName; set { taskName = value; OnPropertyChanged("TaskName"); } }
-        public string TargetSpace { get => targetSpace; set { targetSpace = value; OnPropertyChanged("TargetSpace"); } }
-
-
         public RelayCommand AddNewTaskCmd { get; }
 
         public AddItemWindowViewModel()
         {
             AddNewTaskCmd = new RelayCommand(o => { AddNewTask(); }, AddNewTaskCanExecute);
-            MessengerStatic.ShowExistedTasksQueried += MessengerStatic_ShowExistedTasksQueried;
-            MessengerStatic.TaskAddedByEnter += MessengerStatic_TaskAddedByEnter;
 
             _dbService = SharedData.container.GetInstance<DBService>();
+            SharedData.InitDbService();
+            
             WireFilter();
+            WireStaticBus();
         }
 
         private void MessengerStatic_TaskAddedByEnter(object obj)
@@ -131,7 +139,6 @@ namespace Notifier.ViewModels
                         {
                             result = true;
                         };
-
                     }
                     break;
                 case Modes.Adding:
@@ -152,16 +159,27 @@ namespace Notifier.ViewModels
                     true : Regex.IsMatch(((TaskModel)o).Name, $"{FilterWord}", RegexOptions.IgnoreCase);
         }
 
+        public void WireStaticBus()
+        {
+            MessengerStatic.ShowExistedTasksQueried += MessengerStatic_ShowExistedTasksQueried;
+            MessengerStatic.TaskAddedByEnter += MessengerStatic_TaskAddedByEnter;
+        }
+
+        public void UnwireStaticBus()
+        {
+            MessengerStatic.ShowExistedTasksQueried -= MessengerStatic_ShowExistedTasksQueried;
+            MessengerStatic.TaskAddedByEnter -= MessengerStatic_TaskAddedByEnter;
+        }
+
         private void AddNewTask()
         {
-
             switch (CurrentMode)
             {
                 case Modes.Selecting:
-                    _dbService.MoveTaskToSpace(SelectedComboItem.Id, targetSpace);
+                    _dbService.MoveTaskToSpace(SelectedComboItem.Id, TargetSpace);
                     break;
                 case Modes.Adding:
-                    _dbService.CreateNewTask(taskName, targetSpace);
+                    _dbService.CreateNewTask(TaskName, TargetSpace);
                     break;
             }
             MessengerStatic.NotifyTaskAdded(null);

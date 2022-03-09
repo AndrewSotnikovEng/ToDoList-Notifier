@@ -29,7 +29,7 @@
             <TextBlock Grid.Row = "0" Grid.Column = "0" Text = "Имя" Margin = "10,18,0,17" HorizontalAlignment = "Left" VerticalAlignment = "Center" Width = "100" Height="16" />
             <TextBox Name="NameTextBox"  Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row = "0" Grid.Column = "1" Margin = "10,10,24,10" KeyDown="TextBox_KeyDown"/>
             <TextBlock Grid.Row = "1" Grid.Column = "0" Text = "Описание" Margin = "10,10,0,0" HorizontalAlignment = "Left" VerticalAlignment = "Top" Width = "100" Height="22" />
-            <TextBox Name="DescriptionTextBox" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row = "1" Grid.Column = "1" Margin = "10,10,24,55" KeyDown="TextBox_KeyDown"/>
+            <TextBox Name="DescriptionTextBox" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row = "1" Grid.Column = "1" Margin = "10,10,24,55"/>
         </Grid>
         <StackPanel Orientation="Horizontal" Margin="608,355,10,0" Height="50" VerticalAlignment="Top">
             <Button  Style="{StaticResource Button}" Command="{Binding OkBtnCmd}"  >OK</Button>

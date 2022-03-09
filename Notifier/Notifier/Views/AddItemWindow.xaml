@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Новая задача" Height="180" Width="469.398"
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,-8,243">
+    <Grid Margin="0,0,-8,243" FocusManager.FocusedElement="{Binding ElementName=TaskNameBox}">
         <TextBox x:Name="FilterTextBox" Height="20" Margin="0,15,50,-55" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Right" Width="399" Visibility="Hidden"
                  Text="{Binding Path=FilterWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
         <Button Content="OK" Height="20" Margin="390,120,19,-140" VerticalAlignment="Top" Command="{Binding AddNewTaskCmd}"/>

@@ -28,8 +28,8 @@ namespace Notifier.Models
             CancelBtnCmd = new RelayCommand(o => { Cancel();  });
             MessengerStatic.TaskEditedByEnter += MessengerStatic_TaskEditedByEnter;
 
+            SharedData.InitDbService();
             _dbService = SharedData.container.GetInstance<DBService>();
-
         }
 
         private void MessengerStatic_TaskEditedByEnter(object obj)
