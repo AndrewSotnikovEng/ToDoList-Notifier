@@ -8,8 +8,12 @@
         Title="Новая задача" Height="180" Width="469.398"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,-8,243" FocusManager.FocusedElement="{Binding ElementName=TaskNameBox}">
-        <TextBox x:Name="FilterTextBox" Height="20" Margin="0,15,50,-55" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Right" Width="399" Visibility="Hidden"
+        <TextBox x:Name="FilterTextBox" Height="20" Margin="0,15,50,-55" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Right" Width="399" Visibility="Visible"
                  Text="{Binding Path=FilterWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button x:Name="ToggleFilteringBtn" Margin="430,15,19,-35" Height="20" >
+            <!--<Image Source="{Binding ButtonModePath}"/>-->
+        </Button>
         <Button Content="OK" Height="20" Margin="390,120,19,-140" VerticalAlignment="Top" Command="{Binding AddNewTaskCmd}"/>
         <TextBox x:Name="TaskNameBox" Height="20" Margin="20,45,50,-65" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding TaskName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown"/>
         <ComboBox x:Name="ExistedTasks" Height="20" Margin="0,45,50,-65" VerticalAlignment="Top" ItemsSource="{Binding ExistedTasks}"  Visibility="Hidden" 
