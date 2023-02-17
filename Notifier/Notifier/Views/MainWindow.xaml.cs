@@ -12,7 +12,6 @@ namespace Notifier.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
@@ -50,6 +49,16 @@ namespace Notifier.Views
                 dialog.Show();
             }
         }
+
+        private void ProcessKeys(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            MainWindowViewModel vm = (MainWindowViewModel)DataContext;
+            if (Keyboard.Modifiers == ModifierKeys.Control && Keyboard.IsKeyDown(Key.N))
+            {
+                vm.AddNewTaskCmd.Execute(null);
+            }
+        }
+
 
     }
 }

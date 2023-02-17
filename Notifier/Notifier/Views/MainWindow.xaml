@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Notifier.Views"
         mc:Ignorable="d"
         Title="Задачи на сегодня" Height="406.262" Width="595.102"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        KeyDown="ProcessKeys">
     <Grid Margin="22,0,-69,0" HorizontalAlignment="Left" Width="579" Height="377" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="21*"/>

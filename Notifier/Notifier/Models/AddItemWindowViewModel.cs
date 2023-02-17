@@ -127,7 +127,7 @@ namespace Notifier.ViewModels
             _dbService.GetAllTasks(true).ForEach(x => ExistedTasks.Add(x));
         }
 
-        private bool AddNewTaskCanExecute(object arg)
+        public bool AddNewTaskCanExecute(object arg)
         {
             bool result = false;
             switch (CurrentMode)
